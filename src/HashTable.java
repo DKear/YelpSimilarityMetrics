@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class HashTable {
     Node[] table;
     int count;
@@ -16,7 +19,7 @@ public class HashTable {
         return null;
     }
 
-    void put(String k, String n){
+    void put(String k, String n, double lat, double lon, double s, List<String> cat){
         int h = k.hashCode();
         int i = h & (table.length-1);
         for(Node e = table[i]; e!= null; e = e.next){
@@ -25,7 +28,7 @@ public class HashTable {
                 return;
             }
         }
-        Node p = new Node(k,n,table[i]);
+        Node p = new Node(k,n,lat,lon,s,cat,table[i]);
         table[i] = p;
         count++;
     }
