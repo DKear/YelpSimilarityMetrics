@@ -19,7 +19,18 @@ public class HashTable {
         return null;
     }
 
-    void put(String k, String n, double lat, double lon, double s, List<String> cat){
+    Node getNode(String key){
+        int h = key.hashCode();
+        int i = h&(table.length-1);
+        for(Node e = table[i]; e!= null; e = e.next){
+            if(key.equals(e.key)){
+                return e;
+            }
+        }
+        return null;
+    }
+
+    void put(String k, String n, double s, List<String> cat){
         int h = k.hashCode();
         int i = h & (table.length-1);
         for(Node e = table[i]; e!= null; e = e.next){
@@ -28,7 +39,7 @@ public class HashTable {
                 return;
             }
         }
-        Node p = new Node(k,n,lat,lon,s,cat,table[i]);
+        Node p = new Node(k,n,s,cat,table[i], this);
         table[i] = p;
         count++;
     }

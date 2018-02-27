@@ -1,16 +1,20 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class Main {
     public static void main(String args[]){
         HashTable hashTable = new HashTable();
         File json = new File("business.json");
-        String line = new String();
+        String line;
+        Set categorySet = new HashSet();
 
 
         try{Scanner scanner = new Scanner(json);
@@ -19,8 +23,6 @@ public class Main {
                 JSONObject obj = new JSONObject(line);
                 String id = obj.getString("business_id");
                 String name = obj.getString("name");
-                double lat = obj.getDouble("latitude");
-                double lon = obj.getDouble("longitude");
                 double stars = obj.getDouble("stars");
                 JSONArray categoriesJ = obj.getJSONArray("categories");
                 List categories = new ArrayList(categoriesJ.length());
@@ -29,11 +31,17 @@ public class Main {
                     categories.add(categoriesJ.toList().get(i));
                 }
                 //categories.
-                hashTable.put(name, name, lat, lon, stars, categories);
+                hashTable.put(name, name,  stars, categories);
+                for(int i = 0; i < categories.size(); i++){
+                    categorySet.add(categories.get(i));
+
+
+                }
             }
         }
         catch(Exception e){
             System.out.println("file not found");
         }
+        hashTable.getNode("DAVIDsTEA").setSimilarAL();
     }
 }
