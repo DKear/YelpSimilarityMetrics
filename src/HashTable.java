@@ -4,6 +4,7 @@ import java.util.List;
 public class HashTable {
     Node[] table;
     int count;
+    //HashTable defaults to 10000 because 100000 businesses are being read from the JSON. Resize() needed for more optimal performance.
     HashTable(){
         table = new Node[10000];
     }
@@ -56,7 +57,6 @@ public class HashTable {
             for(int i = 0; i < len; i++){
                 h = 3*h + val[off++];
             }
-            hash = h;
         }
         return h;
     }
